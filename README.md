@@ -4,7 +4,7 @@ Após baixar o projeto, siga os passos abaixo:
 
 Passo - 1: Criar um banco de dados chamado "urgtec".
 
-Passo - 2: Fazer o upload das tabelas dentro do banco de dados urgtec que foi criado no passo 1.
+Passo - 2: importe as tabelas para o banco de dados criado com arquivos **urgtecBancoDeDados** que se encontra na pasta raíz do projeto.
 
 Passo - 3: Acessar o projeto... Exemplo: em sua máquina local digite: http://localhost/urgtec/
 
