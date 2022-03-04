@@ -1,4 +1,4 @@
-Sistema de departamentos/funcionários
+#Sistema de departamentos/funcionários
 
 Após baixar o projeto, siga os passos abaixo:
 
