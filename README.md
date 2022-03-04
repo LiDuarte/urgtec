@@ -12,3 +12,5 @@ na linha 33, faça as configurações do servidor de banco de dados em hostname,
 Passo - 4: Acessar o projeto... Exemplo: em sua máquina local digite: http://localhost/urgtec/
 
 **Observação:** Verifique se no seu servidor local se está habilitado a configuração de modulos -> "rewrite_module"
+
+...
