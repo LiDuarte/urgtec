@@ -47,7 +47,7 @@ class FuncionarioModel extends Model{
         ],
         "departamento" => [
             "required" => "O Departamento é obrigatório",
-            "alpha_numeric" => "Departamento, Só é permitido alfanuméricos"
+            "alpha_numeric" => "Selecione um Departamento existente"
         ],
         "status" => [
             "required" => "Selecione o Status do Funcionário",
