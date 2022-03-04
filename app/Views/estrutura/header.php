@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript" src="<?= base_url("public/js/jquery-3.6.0.min.js"); ?>"></script>
-    <link href="<?= base_url("public/css/bootstrap.min.css"); ?>" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="<?= base_url("public/css/bootstrap.min.css"); ?>" rel="stylesheet">
     <title><?php echo $titulo; ?></title>
 </head>
 <body>
