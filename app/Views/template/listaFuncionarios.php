@@ -49,10 +49,10 @@
               <td><?php echo $departamento->nome_departamento;?> </td> 
               <td> 
                 <?php if($funcionario->status === "1"): ?>
-                  <a href="<?php echo base_url("mudar-status/{$funcionario->id_funcionario}/{$funcionario->status}"); ?>" class="btn btn-danger btn-sm">Desativar</a>
+                  <a href="<?php echo base_url("mudar-status/{$funcionario->id_funcionario}/{$funcionario->status}"); ?>" class="btn btn-danger btn-sm">Clique para Desativar</a>
                 <?php endif; ?>
                   <?php if($funcionario->status === "0"): ?>
-                  <a href="<?php echo base_url("mudar-status/{$funcionario->id_funcionario}/{$funcionario->status}"); ?>" class="btn btn-success btn-sm">Ativar</a>
+                  <a href="<?php echo base_url("mudar-status/{$funcionario->id_funcionario}/{$funcionario->status}"); ?>" class="btn btn-success btn-sm">Clique para Ativar</a>
                 <?php endif; ?>
 
               </td>
