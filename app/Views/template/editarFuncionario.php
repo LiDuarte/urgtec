@@ -21,28 +21,28 @@
           class="form-control" id="exampleFormControlInput1" placeholder="Informe o nome Completo do Funcionário">
 
         <label for="exampleFormControlInput1"  class="form-label">Nome</label>
-        <input type="text" name="nome" value="<?= set_value('nome', $funcionario->nome); ?>" class="form-control" id="exampleFormControlInput1" placeholder="Informe o nome Completo do Funcionário">
+        <input type="text" name="nome" value="<?php echo  $nome === null ? $funcionario->nome : $nome ?>" class="form-control" id="exampleFormControlInput1" placeholder="Informe o nome Completo do Funcionário">
         <div class="mb-3">
           <label for="email" class="form-label">Email</label>
           <input type="email" disabled="disable" value="<?= $funcionario->email; ?>" class="form-control" id="email" placeholder="name@example.com">
         </div>
 
          <div class="form-check">
-          <input class="form-check-input" value="masculino" <?= $funcionario->sexo === "masculino" ? "checked" : null; ?> type="radio" name="sexo" id="sexo">
+          <input class="form-check-input" value="masculino" <?php echo $sexo === "masculino" ? "checked" : null ?> <?= $funcionario->sexo === "masculino" ? "checked" : null; ?> type="radio" name="sexo" id="sexo">
           <label class="form-check-label" for="sexo">
             Masculino
           </label> 
 
         </div>
           <div class="form-check">
-          <input class="form-check-input" value="ferminino" <?= $funcionario->sexo === "ferminino" ? "checked" : null; ?>  type="radio" name="sexo" id="sexo">
+          <input class="form-check-input" value="ferminino" <?php echo $sexo === "ferminino" ? "checked" :  null ?> <?= $funcionario->sexo === "ferminino" ? "checked" : null; ?>  type="radio" name="sexo" id="sexo">
           <label class="form-check-label"  for="sexo">
             Ferminino
           </label>     
         </div>
 
         <label for="DataDeNascimento"  class="form-label">Data de Nascimento</label>
-        <input type="date" name="data_nascimento" value="<?= set_value('data_nascimento', $funcionario->data_nascimento)?>" class="form-control" id="DataDeNascimento" placeholder="Informe a data do seu Nascimento">
+        <input type="date" name="data_nascimento" value="<?php echo $data_nascimento === null  ? $funcionario->data_nascimento : $data_nascimento;   ?>" class="form-control" id="DataDeNascimento" placeholder="Informe a data do seu Nascimento">
          <div class="form-group">
             <label for="SetorFuncionario">Selecione o departamento do Funcionário</label>
            <select class="form-select form-select-sm mb-3" name="departamento" aria-label="Default select example">
@@ -56,7 +56,7 @@
             <?php foreach ($todosDepartamentos as $dp): ?>  
 
              <?php if($dp->nome_departamento != $departamento->nome_departamento): ?>             
-                <option value="<?php echo $dp->id_departamento; ?>"><?php echo $dp->nome_departamento; ?></option>
+                <option value="<?php echo $dp->id_departamento; ?>" <?php echo $inputDepartamento == $dp->id_departamento ? "selected" : null; ?>><?php echo $dp->nome_departamento; ?></option>
               <?php endif; ?>
               </option>
               <?php endforeach; ?>
@@ -64,14 +64,14 @@
         </div>
 
           <div class="form-check">
-          <input class="form-check-input" value="1" <?= $funcionario->status === "1" ? "checked" : null; ?> type="radio" name="status" id="status">
+          <input class="form-check-input" value="1" <?= $status === "1" ? "checked" :  null; ?> <?= $funcionario->status === "1" ? "checked" : null; ?> type="radio" name="status" id="status">
           <label class="form-check-label" for="status">
             Ativo
           </label> 
         </div>
 
         <div class="form-check">
-          <input class="form-check-input" value="0" <?= $funcionario->status === "0" ? "checked" : null; ?> type="radio" name="status" id="status">
+          <input class="form-check-input" value="0" <?= $status === "0" ? "checked" : null; ?> <?= $funcionario->status === "0" ? "checked" : null; ?> type="radio" name="status" id="status">
           <label class="form-check-label"  for="status">
             Inativo
           </label>     

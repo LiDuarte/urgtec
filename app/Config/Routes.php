@@ -44,7 +44,6 @@ $routes->add('excluir-departamento/(:num)', "Urgtec::ExcluirDepartamento/$1");
 $routes->add('mudar-status/(:num)/(:num)', "Urgtec::mudarStatusFuncionario/$1/$2");
 $routes->add('departamento/(:num)', "Urgtec::departamento/$1");
 $routes->add('editar-departamento', "Urgtec::EditarDepartamento/");
-// $routes->add('editar-funcionario', "Urgtec::EditarFuncionario");
 $routes->add('funcionario/(:num)', "Urgtec::funcionario/$1");
 $routes->add('editar-funcionario/', "Urgtec::EditarFuncionario");
 
