@@ -14,8 +14,7 @@
     <div class="col-12">
     <div class="col-12 shadow-lg p-3 mb-5 bg-body rounded-star border border-dark">
         <div class="col-12">
-            <img src="<?php echo base_url("public/images/urgtec-logo.png"); ?>" alt="">
-            dsada
+            <img src="<?php echo base_url("public/images/urgtec-logo.png"); ?>" alt="">           
         </div>
        
     </div>
