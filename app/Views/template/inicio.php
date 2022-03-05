@@ -1,7 +1,7 @@
   <div class="row">
     <div class="col-4">
 			      <div class="card" style="width: 18rem;">
-				  <img class="card-img-top class="rounded float-left" src="<?php echo base_url("public/images/funcionario-02.png"); ?>" alt="Card image cap">
+				  <img class="card-img-top rounded float-left" src="<?php echo base_url("public/images/funcionario-02.png"); ?>" alt="Card image cap">
 				  <div class="card-body">
 				    <h5 class="card-title"><strong>GERENCIAR FUNCIONÁRIOS</strong></h5>
 				    <p class="card-text">Gerencie seus Funcionários, atráves deste card.</p>

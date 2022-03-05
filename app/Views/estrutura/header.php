@@ -11,10 +11,14 @@
 <body>
 <div class="container">
     <div class="row">
-    <div class="col">
     <div class="col-12">
-        <img src="<?php echo base_url("public/images/urgtec-logo.png"); ?>" alt="">
+    <div class="col-12 shadow-lg p-3 mb-5 bg-body rounded-star border border-dark">
+        <div class="col-12">
+            <img src="<?php echo base_url("public/images/urgtec-logo.png"); ?>" alt="">
+            dsada
+        </div>
+       
     </div>
-    <div class="mb-6">
-        <h1><?php echo $titulo; ?> Urgtec /</h1>
+    <div class="mb-6 shadow-lg p-3 mb-5 bg-body rounded border  border-dark">
+        <h1 class="bg-primary p-2 text-white bg-opacity-75 rounded border text-center"><?php echo $titulo; ?> Urgtec /</h1>
   
