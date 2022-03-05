@@ -4,7 +4,7 @@
 				  <img class="card-img-top class="rounded float-left" src="<?php echo base_url("public/images/funcionario-02.png"); ?>" alt="Card image cap">
 				  <div class="card-body">
 				    <h5 class="card-title"><strong>GERENCIAR FUNCIONÁRIOS</strong></h5>
-				    <p class="card-text">Gerencie seus departamentos, atráves deste card.</p>
+				    <p class="card-text">Gerencie seus Funcionários, atráves deste card.</p>
 				  </div>
 				  <ul class="list-group list-group-flush">
 				    <li class="list-group-item"><a href="<?php echo base_url("cadastrar-funcionario") ?>" class="btn btn-outline-primary">Cadastrar Funcionários</a></li>
