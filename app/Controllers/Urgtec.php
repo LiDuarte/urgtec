@@ -5,16 +5,20 @@ use CodeIgniter\Controller;
 class Urgtec extends BaseController
 {
 
+
+
     public function __construct(){
          helper('form');
          $this->session = \Config\Services::session();
+         $this->departamento = new \App\Models\DepartamentoModel();
+         $this->funcionario = new \App\Models\FuncionarioModel();
              
     }
 
     public function index(){
 
  
-        $departamento = new \App\Models\DepartamentoModel();
+        
         $data["titulo"] =  "Ínicio";
         $data["view"] = "inicio";
 
@@ -28,22 +32,22 @@ class Urgtec extends BaseController
     public function CadastrarFuncionario()
     {
 
-        $departamento = new \App\Models\DepartamentoModel();
+        
 
            if($this->request->getMethod() === "post"){
 
-                $funcionario = new \App\Models\FuncionarioModel();
-                $funcionario->set("nome", $this->request->getPost("nome"));
-                $funcionario->set("email", $this->request->getPost("email"));
-                $funcionario->set("data_nascimento", $this->request->getPost("data_nascimento"));
-                $funcionario->set("sexo", $this->request->getPost("sexo"));
-                $funcionario->set("departamento", $this->request->getPost("departamento"));
-                $funcionario->set("status", $this->request->getPost("status"));
-                if($funcionario->insert()):
+                
+                $this->funcionario->set("nome", $this->request->getPost("nome"));
+                $this->funcionario->set("email", $this->request->getPost("email"));
+                $this->funcionario->set("data_nascimento", $this->request->getPost("data_nascimento"));
+                $this->funcionario->set("sexo", $this->request->getPost("sexo"));
+                $this->funcionario->set("departamento", $this->request->getPost("departamento"));
+                $this->funcionario->set("status", $this->request->getPost("status"));
+                if($this->funcionario->insert()):
                     $nome = $this->request->getPost("nome");
                     $sexo = $this->request->getPost("sexo") === "ferminino" ? "a" : "o";
                     $this->session->setFlashdata("alert", "success");
-                    $this->session->setFlashdata("erros", $funcionario->errors());
+                    $this->session->setFlashdata("erros", $this->funcionario->errors());
                     $this->session->setFlashdata("msg", "Funcionari{$sexo} ${nome} adicionado com sucesso!");
                     $this->session->setFlashdata("alertInfo", "alert alert-success");
                 
@@ -56,7 +60,7 @@ class Urgtec extends BaseController
                     $this->session->setFlashdata("inputDepartamento", $this->request->getPost("departamento"));
                     $this->session->setFlashdata("status", $this->request->getPost("status"));
                     $this->session->setFlashdata("alert", "danger");
-                    $this->session->setFlashdata("erros", $funcionario->errors());
+                    $this->session->setFlashdata("erros", $this->funcionario->errors());
                     $this->session->setFlashdata("msg", 'Preencha o formulário corretamente');
                     $this->session->setFlashdata("alertInfo", "alert alert-danger");
                     return redirect()->to(base_url("cadastrar-funcionario"));
@@ -74,7 +78,7 @@ class Urgtec extends BaseController
                 "alertInfo" => $this->session->getFlashdata("alertInfo"),
                 "erros" =>     $this->session->getFlashdata("erros"),
                 "alert" =>     $this->session->getFlashdata("alert"),
-                "departamento" => $departamento->find(),
+                "departamento" => $this->departamento->find(),
                 "titulo" => "Cadastros de Funcionários",
                 "view" => "cadastroFuncionario"
             ];
@@ -85,11 +89,11 @@ class Urgtec extends BaseController
 
         public function CadastrarDepartamento(){
          
-            $departamento = new \App\Models\DepartamentoModel();
+            
 
             if($this->request->getMethod() === "post"):
-                $departamento->set("nome_departamento", $this->request->getPost("nome_departamento"));
-                  if($departamento->insert()):
+                $this->departamento->set("nome_departamento", $this->request->getPost("nome_departamento"));
+                  if($this->departamento->insert()):
                         $nome_departamento = $this->request->getPost("nome_departamento");
                                 // definindo variváveis temporarias de sessão
                              $this->session->setFlashdata("msg", "Novo Departamento de ${nome_departamento} adicionado com sucesso!");
@@ -100,7 +104,7 @@ class Urgtec extends BaseController
                     else:
                              $this->session->setFlashdata("msg", "Não foi possível adicionar este departamento...");
                              $this->session->setFlashdata("alertInfo", "alert alert-danger");
-                             $this->session->setFlashdata("erros", $departamento->errors());
+                             $this->session->setFlashdata("erros", $this->departamento->errors());
                              $this->session->setFlashdata("alert", "danger");
                              return redirect()->to(base_url("cadastrar-departamento"));
                     
@@ -113,7 +117,7 @@ class Urgtec extends BaseController
                 "alertInfo" => $this->session->getFlashdata("alertInfo"),
                 "erros" =>     $this->session->getFlashdata("erros"),
                 "alert" =>     $this->session->getFlashdata("alert"),
-                "departamento" => $departamento->find(),
+                "departamento" => $this->departamento->find(),
                 "titulo" => "Adicionar Departamento",
                 "view" => "cadastroDepartamento"
             ];
@@ -127,15 +131,15 @@ class Urgtec extends BaseController
 
 
             public function listaFuncionarios(){
-                    $funcionario = new \App\Models\FuncionarioModel();
-                    $departamento = new \App\Models\DepartamentoModel();
+                    
+                    
                     $data["msg"] = $this->session->getFlashdata("msg");
                     $data["alertInfo"] = $this->session->getFlashdata("alertInfo");
                     $data["alert"] = $this->session->getFlashdata("success");
                     $data["titulo"] =  "Lista de Funcionários Registrados";
                     $data["view"] = "listaFuncionarios";
-                    $data["listaFuncionarios"] = $funcionario->find();
-                    $data["departamentos"] = $departamento->find();
+                    $data["listaFuncionarios"] = $this->funcionario->find();
+                    $data["departamentos"] = $this->departamento->find();
 
                     echo  view('urgtec', $data);
 
@@ -147,8 +151,8 @@ class Urgtec extends BaseController
                     return redirect()->to(base_url("funcionarios-registrados"));
                 }
 
-                $funcionario = new \App\Models\FuncionarioModel();
-                if($funcionario->delete($id_funcionario)){
+                
+                if($this->funcionario->delete($id_funcionario)){
                     
                     $this->session->setFlashdata('msg', "Funcionário Deletado com sucesso.");
                     $this->session->setFlashdata("alertInfo", "alert alert-success");
@@ -168,8 +172,8 @@ class Urgtec extends BaseController
                     return redirect()->to(base_url("funcionarios-registrados"));
                 }
 
-                $departamento = new \App\Models\DepartamentoModel();
-                if($departamento->delete($id_departamento)){
+                
+                if($this->departamento->delete($id_departamento)){
                     
                     $this->session->setFlashdata('msg', "Departamento Deletado com sucesso.");
                     $this->session->setFlashdata("alertInfo", "alert alert-success");
@@ -187,10 +191,10 @@ class Urgtec extends BaseController
                     $data["msg"] = $this->session->getFlashdata("msg");
                     $data["alertInfo"] = $this->session->getFlashdata("alertInfo");
                     $data["alert"] = $this->session->getFlashdata("success");
-                    $departamento = new \App\Models\DepartamentoModel();
+                    
                     $data["titulo"] =  "Lista de Departamentos Registrados";
                     $data["view"] = "listaDepartamento";
-                    $data["departamentos"] = $departamento->find();
+                    $data["departamentos"] = $this->departamento->find();
 
                      echo  view('urgtec', $data);
                     
@@ -199,28 +203,28 @@ class Urgtec extends BaseController
 
         public function mudarStatusFuncionario($id, $status){
             if($status === "0") {
-                 $funcionario = new \App\Models\FuncionarioModel();
-                    $funcionarioIn = $funcionario->find($id);
+                 
+                    $this->funcionarioIn = $this->funcionario->find($id);
                     
                     $data = [
                         'status' => 1,
                     ]; 
                         
            
-                    $funcionario->update($id,$data);
+                    $this->funcionario->update($id,$data);
                        $this->session->setFlashdata('msg', "Funcionário Ativado.");
                         $this->session->setFlashdata("alertInfo", "alert alert-success");
                         $this->session->setFlashdata("alert", "success");
                     return redirect()->to(base_url("funcionarios-registrados"));
             }else{
-                    $funcionario = new \App\Models\FuncionarioModel();
-                    $funcionarioIn = $funcionario->find($id);
+                    
+                    $this->funcionarioIn = $this->funcionario->find($id);
                 
                 $data = [
                     'status' => 0,
                 ];
        
-                $funcionario->update($id,$data);
+                $this->funcionario->update($id,$data);
                     $this->session->setFlashdata('msg', "Funcionário desativado.");
                     $this->session->setFlashdata("alertInfo", "alert alert-warning");
                     $this->session->setFlashdata("alert", "danger");
@@ -239,10 +243,10 @@ class Urgtec extends BaseController
                     $data["alertInfo"] = $this->session->getFlashdata("alertInfo");
                     $data["alert"] = $this->session->getFlashdata("success");
                     $data["erros"] = $this->session->getFlashdata("erros");
-                    $departamento = new \App\Models\DepartamentoModel();
+                    
                     $data["titulo"] =  "Editar Departamento";
                     $data["view"] = "editarDepartamento";
-                    $data["departamento"] = $departamento->find($id_departamento);
+                    $data["departamento"] = $this->departamento->find($id_departamento);
 
              
 
@@ -252,12 +256,12 @@ class Urgtec extends BaseController
         public function EditarDepartamento(){
                 if($this->request->getMethod() === "post"):
             
-                        $departamento = new \App\Models\DepartamentoModel();
-                        $departamento->set("nome_departamento", $this->request->getPost("nome_departamento"));
-                        $departamentopost =  $departamento->find($this->request->getPost("id_departamento"));
+                        
+                        $this->departamento->set("nome_departamento", $this->request->getPost("nome_departamento"));
+                        $departamentopost =  $this->departamento->find($this->request->getPost("id_departamento"));
                         $departamentopost->nome_departamento = $this->request->getPost("nome_departamento");
 
-                        if($departamento->update($this->request->getPost("id_departamento"), $departamentopost)):
+                        if($this->departamento->update($this->request->getPost("id_departamento"), $departamentopost)):
                                 $this->session->setFlashdata('msg', "Departamento foi alterado.");
                                 $this->session->setFlashdata("alertInfo", "alert alert-success");
                                 $this->session->setFlashdata("alert", "success");
@@ -266,7 +270,7 @@ class Urgtec extends BaseController
                                 $this->session->setFlashdata("status", $this->request->getPost("status"));
                                 $this->session->setFlashdata('msg', "Algo deu errado...");
                                 $this->session->setFlashdata("alertInfo", "alert alert-danger");
-                                $this->session->setFlashdata("erros", $departamento->errors());
+                                $this->session->setFlashdata("erros", $this->departamento->errors());
                                 $this->session->setFlashdata("alert", "danger");
                                 return redirect()->to(base_url("departamento/{$this->request->getPost("id_departamento")}"));
                         
@@ -278,39 +282,39 @@ class Urgtec extends BaseController
 
         public function funcionario($id_funcionario){
             
-        $departamento = new \App\Models\DepartamentoModel();
-        $funcionario = new \App\Models\FuncionarioModel();
+        
+        
         
         
 
            if($this->request->getMethod() === "post"){
 
 
-                $funcionario->set("nome", $this->request->getPost("nome"));
-                $funcionario->set("email", $this->request->getPost("email"));
-                $funcionario->set("data_nascimento", $this->request->getPost("data_nascimento"));
-                $funcionario->set("sexo", $this->request->getPost("sexo"));
-                $funcionario->set("departamento", $this->request->getPost("departamento"));
-                $funcionario->set("status", $this->request->getPost("status"));
-                if($funcionario->update()):
+                $this->funcionario->set("nome", $this->request->getPost("nome"));
+                $this->funcionario->set("email", $this->request->getPost("email"));
+                $this->funcionario->set("data_nascimento", $this->request->getPost("data_nascimento"));
+                $this->funcionario->set("sexo", $this->request->getPost("sexo"));
+                $this->funcionario->set("departamento", $this->request->getPost("departamento"));
+                $this->funcionario->set("status", $this->request->getPost("status"));
+                if($this->funcionario->update()):
                     $nome = $this->request->getPost("nome");
                     $sexo = $this->request->getPost("sexo") === "ferminino" ? "a" : "o";
                     $this->session->setFlashdata("alert", "success");
-                    $this->session->setFlashdata("erros", $funcionario->errors());
+                    $this->session->setFlashdata("erros", $this->funcionario->errors());
                     $this->session->setFlashdata("msg", "Funcionari{$sexo} ${nome} adicionado com sucesso!");
                     $this->session->setFlashdata("alertInfo", "alert alert-success");
                 
                     return redirect()->to(base_url("cadastrar-funcionario"));
                 else:
                     $this->session->setFlashdata("alert", "danger");
-                    $this->session->setFlashdata("erros", $funcionario->errors());
+                    $this->session->setFlashdata("erros", $this->funcionario->errors());
                     $this->session->setFlashdata("msg", 'Preencha o formulário corretamente');
                     $this->session->setFlashdata("alertInfo", "alert alert-danger");
                     return redirect()->to(base_url("cadastrar-funcionario"));
                 endif;
             }
 
-              $dadosFuncionario = $funcionario->find($id_funcionario);
+              $dadosFuncionario = $this->funcionario->find($id_funcionario);
     
                $data = [
                 "nome" =>      $this->session->getFlashdata("nome"),
@@ -325,9 +329,9 @@ class Urgtec extends BaseController
                 "alert" =>     $this->session->getFlashdata("alert"),
                 "titulo" => "Editar de Funcionários",
                 "view" => "editarFuncionario",
-                "todosDepartamentos" => $departamento->find(),
-                "funcionario" => $funcionario->find($id_funcionario),
-                "departamento" => $departamento->find($dadosFuncionario->departamento),
+                "todosDepartamentos" => $this->departamento->find(),
+                "funcionario" => $this->funcionario->find($id_funcionario),
+                "departamento" => $this->departamento->find($dadosFuncionario->departamento),
                 ];
               
 
@@ -339,13 +343,13 @@ class Urgtec extends BaseController
             
                 if($this->request->getMethod() === "post"):
                 
-                        $funcionario = new \App\Models\FuncionarioModel();
+                        
             
-                            $funcionario->find($this->request->getPost("id_funcionario"));
-                            $funcionarioPost = $this->request->getPost();
+                            $this->funcionario->find($this->request->getPost("id_funcionario"));
+                            $this->funcionarioPost = $this->request->getPost();
                         
                         
-                        if($funcionario->update($this->request->getPost("id_funcionario"), $funcionarioPost)):
+                        if($this->funcionario->update($this->request->getPost("id_funcionario"), $this->funcionarioPost)):
                                 $this->session->setFlashdata('msg', "Funcionario(a) foi alterado.");
                                 $this->session->setFlashdata("alertInfo", "alert alert-success");
                                 $this->session->setFlashdata("alert", "success");
@@ -359,7 +363,7 @@ class Urgtec extends BaseController
                                 $this->session->setFlashdata("status", $this->request->getPost("status"));
                                 $this->session->setFlashdata('msg', "Algo deu errado...");
                                 $this->session->setFlashdata("alertInfo", "alert alert-danger");
-                                $this->session->setFlashdata("erros", $funcionario->errors());
+                                $this->session->setFlashdata("erros", $this->funcionario->errors());
                                 $this->session->setFlashdata("alert", "danger");
                                 return redirect()->to(base_url("funcionario/{$this->request->getPost("id_funcionario")}"));
                         
